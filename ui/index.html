@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="sv-SE">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+        <title>Life</title>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <style type="text/css">
+            [v-cloak] {
+                display: none;
+            }
+            h2 {
+                font-size: 24px;
+            }
+            .entry {
+                font-size: 14px;
+                position: fixed;
+                right: 0;
+            }
+            .entry-item {
+                margin-bottom: 5px;
+                padding: 5px;
+                display: block;
+                cursor: pointer;
+            }
+            .entry-item.active {
+                background-color: #ddd;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container-fluid" id="app" v-cloak>
+            <div class="alert alert-danger" v-if="connectionError">
+                <b>Failed to fetch items!</b> Make sure a life.json file has been generated in the same directory as this file.
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <h1>Life.</h1>
+                    <entry-item v-for="entry in entries" v-bind:entry="entry"></entry-item>
+                </div>
+                <div class="entry col-md-8" v-if="activeEntry" v-html="activeEntryHTML"></div>
+            </div>
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.4.0/vue.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.7.1/showdown.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/locale/sv.js"></script>
+
+
+        <script src="main.js"></script>
+    </body>
+</html>
