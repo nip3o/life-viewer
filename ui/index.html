@@ -20,6 +20,7 @@
                 font-size: 14px;
                 position: fixed;
                 right: 0;
+                top: 20px;
                 bottom: 0;
                 overflow: auto;
             }
@@ -28,6 +29,9 @@
                 padding: 5px;
                 display: block;
                 cursor: pointer;
+            }
+            .toolbar {
+                position: fixed;
             }
             .entry-item.active {
                 background-color: #ddd;
@@ -46,6 +50,7 @@
                     <entry-item v-for="entry in entries" v-bind:entry="entry"></entry-item>
                 </div>
                 <div class="entry col-md-8" v-if="activeEntry" v-html="activeEntryHTML"></div>
+                <a class="toolbar" v-if="activeEntry" v-bind:href="'https://photos.google.com/search/' + activeEntry.date">Google Photos</a>
             </div>
         </div>
 
