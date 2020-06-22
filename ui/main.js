@@ -22,6 +22,7 @@ let app = new Vue({
         entries: [],
         activeEntry: null,
         activeEntryHTML: null,
+        entriesByYear: {},
     },
 })
 
@@ -61,7 +62,21 @@ Vue.component('entry-item', {
 })
 
 ajax('life.json').then((response) => {
-    app.entries = JSON.parse(response).sort((a, b) => new Date(b.date) - new Date(a.date))
-}).catch(() => {
+    app.showOverview = false
+    app.entries = JSON.parse(response).map(item => {
+        item.date = new Date(item.date)
+        return item
+    }).sort((a, b) => b.date - a.date)
+
+
+    app.entriesByYear = app.entries.reduce((result, value) => { 
+        const year = value.date.getFullYear()
+        result[year] = result[year] || []
+        result[year].push(value)
+        return result
+    }, {})
+
+}).catch((e) => {
+    console.error(e)
     app.connectionError = true
 })

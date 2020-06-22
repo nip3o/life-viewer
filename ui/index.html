@@ -22,6 +22,7 @@
                 right: 0;
                 top: 20px;
                 bottom: 0;
+                padding-right: 30px;
                 overflow: auto;
             }
             .entry-item {
@@ -47,7 +48,16 @@
             <div class="row">
                 <div class="col-md-4">
                     <h1>Life.</h1>
-                    <entry-item v-for="entry in entries" v-bind:entry="entry"></entry-item>
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" v-for="year in Object.keys(entriesByYear).reverse()"><a v-bind:href="'#' + year" role="tab" data-toggle="tab">{{ year }}</a></li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane" v-for="year in Object.keys(entriesByYear)" v-bind:id="year">
+                            <h2>{{ year }} <small> | {{ entriesByYear[year].length }} entries</small></h2>
+                            <entry-item v-for="entry in entriesByYear[year]" v-bind:entry="entry"></entry-item>
+                        </div>
+                    </div>
                 </div>
                 <div class="entry col-md-8" v-if="activeEntry" v-html="activeEntryHTML"></div>
                 <a class="toolbar" v-if="activeEntry" v-bind:href="'https://photos.google.com/search/' + activeEntry.date">Google Photos</a>
@@ -55,6 +65,8 @@
         </div>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.4.0/vue.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.7.1/showdown.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/locale/sv.js"></script>
